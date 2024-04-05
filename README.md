@@ -49,3 +49,7 @@ Set up MySQL database:
 - Install MySQL if not already installed.
 - Create a new database "python" for the project.
 
+
+
+- create database named 'python' in your mysql
+- after create databse 'python' execute 'dataBase.sql' file then all tables will be create
