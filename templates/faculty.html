@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculty Details</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+      .table_data {
+        background: transparent;
+        border: 2px solid #d4d4d4;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+      }
+      
+      body {
+        top: 0px !important;
+      }
+      
+      .table-striped {
+        border: 3px solid transparent;
+        padding: 0px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+      }
+      
+      .form-container {
+        margin-top: 20px;
+      }
+      
+      .form-container input[type='text'],
+      .form-container input[type='email'],
+      .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: none;
+        background: #f1f1f1;
+      }
+      
+      .form-container input[type='submit'] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .form-container input[type='submit']:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% if error_message %}
+      <div class="alert alert-danger" role="alert">
+        <strong>{{ error_message }}</strong>
+      </div>
+    {% endif %}
+    {% if success_message %}
+      <div class="alert alert-success" role="alert">
+        <strong>{{ success_message }}</strong>
+      </div>
+    {% endif %}
+
+    <div class="container">
+      <h1 class="text-center mt-5">Faculty Details</h1>
+      <!-- faculty data -->
+      <table class="table-striped bg-light mt-5" cellspacing="1" cellpadding="1">
+        <tbody>
+          <tr>
+            <th class="table_data">Faculty ID</th>
+            <td class="table_data">{{ f_id }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Name</th>
+            <td class="table_data">{{ name }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Email-ID</th>
+            <td class="table_data">{{ email }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Phone Number</th>
+            <td class="table_data">{{ phone }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Department & Branch</th>
+            <td class="table_data">{{ department }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Address</th>
+            <td class="table_data">{{ address }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Designation</th>
+            <td class="table_data">{{ designation }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Your Certified Courses</th>
+            <td class="table_data">{{ course }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Affiliated with this Organization</th>
+            <td class="table_data">{{ atteched_year }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="form-container">
+        <h3 class="mt-5">Do you want to change any details?</h3>
+        <!-- Button to Open Modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changeDetailsModal">Click Here</button>
+
+        <!-- Change Details Modal -->
+        <div class="modal fade" id="changeDetailsModal" tabindex="-1" aria-labelledby="changeDetailsModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="changeDetailsModalLabel">Change Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="get" action="{% url 'faculty' %}">
+                  {% comment %} {% csrf_token %} {% endcomment %}
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Enter Your Name</label>
+                    <input type="text" value="{{ name }}" name="name" class="form-control" id="name" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" value="{{ email }}" class="form-control" name="email" id="email" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea name="description" class="form-control" id="desc" rows="4" required></textarea>
+                  </div>
+                  <button type="submit" name="button" value="faculty_query" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <p class="table_data">For Any Queries Contact To: LJIET 07096660382</p>
+        <p class="table_data">
+          Visit to website: <a href="https://www.ljku.edu.in/" target="_blank">LJ UNIVERSITY</a><br />Email-ID : info@ljku.edu.in
+        </p>
+      </div>
+
+      <div class="mt-5">
+        <p class="table_data">
+          <!-- Change Password -->
+          <a href="#changePassword"><button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#changePassword">Do you want to change password?</button></a>
+        </p>
+      </div>
+
+      <!-- Change Password Modal -->
+      <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="changePasswordLabel">Change Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'faculty' %}">
+              <div class="modal-body">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="id" class="form-label">Faculty ID</label>
+                  <input type="number" class="form-control" name="id" id="id" required />
+                </div>
+                <div class="mb-3">
+                  <label for="currentPassword" class="form-label">Current Password</label>
+                  <input type="password" class="form-control" name="current_password" id="currentPassword" required />
+                </div>
+                <div class="mb-3">
+                  <label for="newPassword" class="form-label">New Password</label>
+                  <input type="password" class="form-control" name="new_password" id="newPassword" required />
+                </div>
+                <div class="mb-3">
+                  <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                  <input type="password" class="form-control" name="confirm_password" id="confirmPassword" required />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" name="button" value="change_password" class="btn btn-info">Change Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

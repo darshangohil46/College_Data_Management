@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% if error_message %}
+      <div class="alert alert-danger" role="alert">
+        <strong>{{ error_message }}</strong>
+      </div>
+    {% endif %}
+
+    {% if success_message %}
+      <div class="alert alert-success" role="alert">
+        <strong>{{ success_message }}</strong>
+      </div>
+    {% endif %}
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h3 class="text-center">Event Registration</h3>
+            </div>
+            <div class="card-body">
+              <!-- Registration Form -->
+              <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="fullName" name="name" placeholder="Enter name" />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email address" />
+                </div>
+                <div class="mb-3">
+                  <label for="enrollment" class="form-label">Enrollment Number</label>
+                  <input type="text" class="form-control" id="enrollment" name="enrollment" placeholder="Enter Enrollment" />
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" value="event" name="button">Register</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- event details -->
+      <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-header bg-info text-white">
+              <h3 class="text-center">Event Details</h3>
+            </div>
+            <div class="card-body">
+              <p>
+                <strong>Event Name:</strong> LUMINA 2K24
+              </p>
+              <p>
+                <strong>Datef:</strong> April 1st, 2024
+              </p>
+              <p>
+                <strong>Location:</strong> LJ University, Engineering Open Ground
+              </p>
+              <p>
+                <strong>Description:</strong> Lumina is a celebration of innovation and creativity, bringing together artists, entrepreneurs, and thought leaders from around the globe. Join us for a day filled with inspiring talks, interactive workshops, and networking opportunities. Whether you're a seasoned professional or just starting your journey, Lumina offers something for everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

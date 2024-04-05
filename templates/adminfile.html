@@ -1,0 +1,528 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+      .table_data {
+        background: transparent;
+        border: 2px solid #d4d4d4;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+      }
+      
+      body {
+        top: 0px !important;
+      }
+      
+      .table-striped {
+        border: 3px solid transparent;
+        padding: 0px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+      }
+      
+      .form-container {
+        margin-top: 20px;
+      }
+      
+      .form-container input[type='text'],
+      .form-container input[type='email'],
+      .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: none;
+        background: #f1f1f1;
+      }
+      
+      .form-container input[type='submit'] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .form-container input[type='submit']:hover {
+        background-color: #0056b3;
+      }
+      
+      button {
+        margin: 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% if error_message %}
+      <div class="alert alert-danger" role="alert">
+        <strong>{{ error_message }}</strong>
+      </div>
+    {% endif %}
+    {% if success_message %}
+      <div class="alert alert-success" role="alert">
+        <strong>{{ success_message }}</strong>
+      </div>
+    {% endif %}
+
+    <!-- show facylty email and name -->
+    <div class="container">
+      <h1 class="text-center mt-5">Admin Details</h1>
+      <table class="table-striped bg-light mt-5" cellspacing="1" cellpadding="1">
+        <tbody>
+          <tr>
+            <th class="table_data">Name</th>
+            <td class="table_data">{{ name }}</td>
+          </tr>
+          <tr>
+            <th class="table_data">Email</th>
+            <td class="table_data">{{ email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- code of html -->
+    <div class="album py-5 bg-body-tertiary">
+      <!-- card for student -->
+      <div class="container mb-3">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://images.unsplash.com/photo-1530099486328-e021101a494a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHN0dWRlbnR8ZW58MHx8MHx8fDA%3D" alt="Student" class="card-img-top" />
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="text-center">
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#student">Add Student</button>
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#removeStudent">Remove Student</button>
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#editStudent">Edit Student Details</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- card for faculty -->
+      <div class="container mb-3">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://media.istockphoto.com/id/1313119518/photo/middle-aged-teacher-in-casualwear-standing-by-blackboard-in-lecture-hall-and-looking-at.webp?b=1&s=170667a&w=0&k=20&c=BvtS4E6O1J3SPBxfIlQbd-yhSZo3q9_6WRmi3IJR1MM=" alt="faculty" />
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="text-center">
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#faculty">Add Faculty</button>
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#removeFaculty">Remove Faculty</button>
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#editFaculty">Edit Faculty Details</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- card for marks entry -->
+      <div class="container mb-3">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://media.istockphoto.com/id/912932534/photo/results-wooden-letters-on-the-office-desk-informative-and-communication-background.webp?b=1&s=170667a&w=0&k=20&c=QZCRRttrTpD-HsoUQqaTueSfHhCqIvRRSK43-tWrc_g=" alt="Admin" />
+            </div>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="text-center">
+                  <button type="button" class="btn btn-dark btn-md mb-3" data-bs-toggle="modal" data-bs-target="#enterMarks">Enter Marks Of Student</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- all card ended -->
+
+    <!-- add in database -->
+    <!-- add student -->
+    <div class="modal fade" id="student" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Student</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              <div class="form-container">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input type="email" class="form-control" name="email" id="email" required />
+                </div>
+                <div class="mb-3">
+                  <label for="ern" class="form-label">Enrollment No.</label>
+                  <input type="text" class="form-control" name="enrollment" id="ern" required />
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="text" maxlength="10" class="form-control" name="phone" id="phone" required />
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <input type="text" class="form-control" name="address" id="address" required />
+                </div>
+                <div class="mb-3">
+                  <label for="department" class="form-label">Department</label>
+                  <input type="text" class="form-control" name="department" id="department" required />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" name="button" value="student">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- add faculty -->
+    <div class="modal fade" id="faculty" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Faculty</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              <div class="form-container">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="name2" class="form-label">Name</label>
+                  <input type="text" name="name" class="form-control" id="name2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email2" class="form-label">Email address</label>
+                  <input type="email" class="form-control" name="email" id="email2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="phone2" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" maxlength="10" name="phone" id="phone2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="address2" class="form-label">Address</label>
+                  <input type="text" class="form-control" name="address" id="address2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="department2" class="form-label">Department</label>
+                  <input type="text" class="form-control" name="department" id="department2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="designation2" class="form-label">Designation</label>
+                  <input type="text" class="form-control" name="designation" id="designation2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="course2" class="form-label">Course</label>
+                  <input type="text" class="form-control" name="course" id="course2" required />
+                </div>
+                <div class="mb-3">
+                  <label for="attached_year2" class="form-label">Attached Year</label>
+                  <input type="text" class="form-control" name="attached_year" id="attached_year2" required />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" name="button" value="faculty">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- remove from database -->
+    <!-- Remove student -->
+    <div class="modal fade" id="removeStudent" tabindex="-1" aria-labelledby="removeStudentLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeStudentLabel">Remove Student</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="removeEnrollment" class="form-label">Enrollment No.</label>
+                <input type="text" class="form-control" name="enrollment" id="removeEnrollment" required />
+              </div>
+              <div class="mb-3">
+                <label for="removeEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" id="removeEmail" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger" name="button" value="remove_student">Remove</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Remove faculty -->
+    <div class="modal fade" id="removeFaculty" tabindex="-1" aria-labelledby="removeFacultyLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeFacultyLabel">Remove Faculty</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="removeFId" class="form-label">Faculty ID</label>
+                <input type="number" class="form-control" name="f_id" id="removeFId" required />
+              </div>
+              <div class="mb-3">
+                <label for="removeFacultyEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" id="removeFacultyEmail" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger" name="button" value="remove_faculty">Remove</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- editing -->
+    <!-- Edit student -->
+    <div class="modal fade" id="editStudent" tabindex="-1" aria-labelledby="editStudentLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editStudentLabel">Edit Student Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="mb-3">
+                <div class="mb-3">
+                  <label for="enrollment" class="form-label">Enrollment No.</label>
+                  <input type="text" class="form-control" name="enrollment" id="enrollment" required />
+                </div>
+                <label class="form-label">Select attribute to edit:</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editName" value="name" required />
+                  <label class="form-check-label" for="editName">Name</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editEmail" value="email" />
+                  <label class="form-check-label" for="editEmail">Email address</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editDepartment" value="department" />
+                  <label class="form-check-label" for="editDepartment">Department</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editFees" value="fees" />
+                  <label class="form-check-label" for="editFees">Fees</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editPhone" value="phone" />
+                  <label class="form-check-label" for="editPhone">Phone Number</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editAddress" value="address" />
+                  <label class="form-check-label" for="editAddress">Address</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">New Value:</label>
+                <input type="text" class="form-control" name="new_value" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-warning" name="button" value="edit_student">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit faculty -->
+    <div class="modal fade" id="editFaculty" tabindex="-1" aria-labelledby="editFacultyLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editFacultyLabel">Edit Faculty Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="{% url 'adminfile' %}">
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="mb-3">
+                <div class="mb-3">
+                  <label for="f_id" class="form-label">Faculty ID</label>
+                  <input type="text" class="form-control" name="f_id" id="f_id" required />
+                </div>
+                <label class="form-label">Select attribute to edit:</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editName2" value="name" />
+                  <label class="form-check-label" for="editName2">Name</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editEmail2" value="email" />
+                  <label class="form-check-label" for="editEmail2">Email address</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editPhone2" value="phone" />
+                  <label class="form-check-label" for="editPhone2">Phone Number</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editDepartment2" value="department" />
+                  <label class="form-check-label" for="editDepartment2">Department</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editAddress2" value="address" />
+                  <label class="form-check-label" for="editAddress2">Address</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editDesignation" value="designation" />
+                  <label class="form-check-label" for="editDesignation">Designation</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editCourse" value="course" />
+                  <label class="form-check-label" for="editCourse">Course</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="attribute" id="editAttachedYear" value="attached_year" />
+                  <label class="form-check-label" for="editAttachedYear">Attached Year</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">New Value:</label>
+                <input type="text" class="form-control" name="new_value" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-warning" name="button" value="edit_faculty">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- for marks enter -->
+    <div class="modal fade" id="enterMarks" tabindex="-1" aria-labelledby="enterMarksLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="enterMarksLabel">Entry Of Marks</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="marksForm" method="POST" action="{% url 'adminfile' %}">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                <input type="text" class="form-control" id="enrollment" name="enrollment" placeholder="Enter Enrollment" required />
+              </div>
+
+              <!-- Semester 1 -->
+              <div class="mb-3">
+                <label class="form-label">Semester 1</label><br />
+                {% for sub in sem1 %}
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="{{ sub }}" name="subject" value="{{ sub }}" required />
+                    <label class="form-check-label" for="{{ sub }}">{{ sub }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Semester 2 -->
+              <div class="mb-3">
+                <label class="form-label">Semester 2</label><br />
+                {% for sub in sem2 %}
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="{{ sub }}" name="subject" value="{{ sub }}" required />
+                    <label class="form-check-label" for="{{ sub }}">{{ sub }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Semester 3 -->
+              <div class="mb-3">
+                <label class="form-label">Semester 3</label><br />
+                {% for sub in sem3 %}
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="{{ sub }}" name="subject" value="{{ sub }}" required />
+                    <label class="form-check-label" for="{{ sub }}">{{ sub }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Semester 4 -->
+              <div class="mb-3">
+                <label class="form-label">Semester 4</label><br />
+                {% for sub in sem4 %}
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="{{ sub }}" name="subject" value="{{ sub }}" required />
+                    <label class="form-check-label" for="{{ sub }}">{{ sub }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Semester 5 -->
+              <div class="mb-3">
+                <label class="form-label">Semester 5</label><br />
+                {% for sub in sem5 %}
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="{{ sub }}" name="subject" value="{{ sub }}" required />
+                    <label class="form-check-label" for="{{ sub }}">{{ sub }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- input for marks -->
+              <div class="mb-3">
+                <input type="number" min="0" max="100" class="form-control" id="marksInput" name="marks" placeholder="Enter marks" required />
+              </div>
+
+              <button class="btn btn-success btn-sm" type="submit" name="button" value="sem_select">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
