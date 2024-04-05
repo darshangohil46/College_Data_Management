@@ -52,3 +52,8 @@ Set up MySQL database:
 Set up of Tables
 - create database named 'python' in your mysql
 - after create databse 'python' execute 'dataBase.sql' file then all tables will be create
+
+
+for admin site
+- username: admin
+- password: admin
